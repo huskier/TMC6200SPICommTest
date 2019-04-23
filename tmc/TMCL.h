@@ -7,4 +7,6 @@
 	void tmcl_process();
 	void tmcl_boot();
 
+	void txTest(uint8 ch);
+
 #endif /* TMCL_H */

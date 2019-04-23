@@ -493,6 +493,15 @@ void tx(RXTXTypeDef *RXTX)
 	RXTX->txN(reply, 9);
 }
 
+void txTest(uint8 ch)
+{
+	uint8 reply[2];
+
+	reply[0] = ch;
+
+	(&interfaces[1])->txN(reply, 1);
+}
+
 void rx(RXTXTypeDef *RXTX)
 {
 	uint8_t checkSum = 0;

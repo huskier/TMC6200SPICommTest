@@ -2,7 +2,7 @@
 #VERSION			= 3.06
 include version.txt
 #DEVICE			= Startrampe
-#DEVICE			= Landungsbruecke
+DEVICE			= Landungsbruecke
 LINK			= BL
 #LINK			= NOBL
 OUTDIR 			= _build_$(DEVICE)

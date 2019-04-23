@@ -9,6 +9,7 @@
 
 #include "EEPROM.h"
 #include <string.h>
+#include "TMCL.h"
 
 EEPROM_Channels EEPROM =
 {
@@ -122,8 +123,10 @@ void eeprom_write_byte(SPIChannelTypeDef *SPIChannel, uint16_t address, uint8_t 
 		SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
 		EEPROM.ch1.init = false;
 	} else {
-		SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		SPIChannel->CSN = &HAL.IOs->pins->SPI2_CSN1;
 		EEPROM.ch2.init = false;
+		txTest(0x36);
 	}
 
 	IOs.toOutput(SPIChannel->CSN);
@@ -183,7 +186,9 @@ void eeprom_write_array(SPIChannelTypeDef *SPIChannel, uint16_t address, uint8_t
 		SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
 		EEPROM.ch1.init = false;
 	} else {
-		SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
+		SPIChannel->CSN = &HAL.IOs->pins->SPI2_CSN1;
 		EEPROM.ch2.init = false;
 	}
 
@@ -265,9 +270,17 @@ uint8_t eeprom_read_byte(SPIChannelTypeDef *SPIChannel, uint16_t address)
 	//select CSN of eeprom
 	IOPinTypeDef* io = SPIChannel->CSN;
 	if(SPIChannel == &SPI.ch1)
+	{
 		SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
+	}
 	else
-		SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+	{
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
+		SPIChannel->CSN = &HAL.IOs->pins->SPI2_CSN1;
+		txTest(0x37);
+	}
+
 
 	IOs.toOutput(SPIChannel->CSN);
 
@@ -306,7 +319,11 @@ void eeprom_read_array(SPIChannelTypeDef *SPIChannel, uint16_t address, uint8_t 
 	if(SPIChannel == &SPI.ch1)
 		SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
 	else
-		SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+	{
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
+		//SPIChannel->CSN = &HAL.IOs->pins->ID_CH0;
+		SPIChannel->CSN = &HAL.IOs->pins->SPI2_CSN1;
+	}
 
 	IOs.toOutput(SPIChannel->CSN);
 
