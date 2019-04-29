@@ -15,7 +15,7 @@ const char *VersionString = MODULE_ID"V306"; // module id and version of the fir
 
 static SPIChannelTypeDef *EEPROM_SPIChannel;
 
-static SPIChannelTypeDef *TMC6200_SPIChannel;
+extern SPIChannelTypeDef *TMC6200_SPIChannel;
 
 
 /* Keep as is! This lines are important for the update functionality. */
